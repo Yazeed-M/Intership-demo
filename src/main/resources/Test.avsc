@@ -1,0 +1,8 @@
+{"type":"record",
+"name":"user",
+"namespace":"user",
+"fields":
+    [{"name":"name",
+    "type":"string"},
+    {"name":"password",
+    "type":"string"}]}

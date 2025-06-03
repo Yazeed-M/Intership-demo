@@ -1,0 +1,49 @@
+POST http://localhost:8080/api/user 
+Content-Type: application/json
+
+{
+    "name": "hdes.com",
+    "password": "12134",
+    "redisId": "1"
+}
+
+###
+POST http://localhost:8080/api/user/redis 
+Content-Type: application/json
+
+{
+    "name": "hde.com",
+    "password": "12134",
+    "redisId": "cdsyazeed"
+}
+
+###
+GET http://localhost:8080/api/user/hdes.com
+###
+POST http://localhost:8080/api/user/update
+Content-Type: application/json
+
+{
+    "name": "hde.com",
+    "password": "12yyy134",
+    "redisId": "cdsyazeed"
+}
+
+###
+POST http://localhost:8080/api/user/delete
+Content-Type: application/json
+
+{
+    "name": "hdes.com",
+    "password": "12134",
+    "redisId": "1"
+}
+###
+POST http://localhost:8080/api/user/kafka
+Content-Type: application/json
+
+{
+    "name": "hdes.com",
+    "password": "12134",
+    "redisId": "1"
+}
