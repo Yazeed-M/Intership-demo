@@ -5,12 +5,11 @@ import org.springframework.stereotype.Component;
 
 import user.user;
 
-
 @Component
 public class consumerUser {
-    
-    @KafkaListener(topics = "avroTestingT", groupId="user-servicse")
-    public void consumerResponse(user User){
+
+    @KafkaListener(topics = "avroTestingT", groupId = "user-servicse")
+    public void consumerResponse(user User) {
         System.out.println(User.getName());
     }
 }

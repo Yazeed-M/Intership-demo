@@ -17,52 +17,57 @@ import user.user;
 
 @Service
 public class UserService {
+
     @Autowired
     private final RedisTemplate<String, redisUser> redisTemplate;
     private final redisUserRepo redisRepo;
-    private final UserRepository repo; 
-    @Autowired  
-    private final KafkaTemplate<String,user> template; 
-    public UserService(UserRepository repo, RedisTemplate<String, redisUser> redisTemplate, redisUserRepo redisRepo, org.springframework.kafka.core.KafkaTemplate template){
+    private final UserRepository repo;
+    @Autowired
+    private final KafkaTemplate<String, user> template;
+
+    public UserService(UserRepository repo, RedisTemplate<String, redisUser> redisTemplate, redisUserRepo redisRepo, org.springframework.kafka.core.KafkaTemplate template) {
         this.redisRepo = redisRepo;
-        this.repo=repo;
-        this.redisTemplate=redisTemplate;
+        this.repo = repo;
+        this.redisTemplate = redisTemplate;
         this.template = template;
     }
 
-    public User createUser(User user){
+    public User createUser(User user) {
         return repo.save(user);
     }
-    public redisUser addUserRedis(redisUser redisUser){
-     String key = redisUser.getRedisId();
+
+    public redisUser addUserRedis(redisUser redisUser) {
+        String key = redisUser.getRedisId();
         redisRepo.save(redisUser);
-        
-    return (redisUser) redisRepo.getByredisId(key);
+
+        return (redisUser) redisRepo.getByredisId(key);
     }
-    @Cacheable(value="users")
-    public User getUserByname(String name){
+
+    @Cacheable(value = "users")
+    public User getUserByname(String name) {
         return repo.findUserByName(name);
     }
-    @CachePut(value= "users", key="#user.name")
-    public User updateUser(User user){
+
+    @CachePut(value = "users", key = "#user.name")
+    public User updateUser(User user) {
         return repo.save(user);
     }
-    @CacheEvict(value="users")
-    public void deleteUser(String email){
+
+    @CacheEvict(value = "users")
+    public void deleteUser(String email) {
         repo.deleteUserByName(email);
     }
-    public redisUser getUser(String redisId){
+
+    public redisUser getUser(String redisId) {
         return (redisUser) redisTemplate.opsForValue().get(redisId);
     }
 
-    public void sch(String name){
+    public void sch(String name) {
         System.out.println(name);
     }
 
-
-
     // kafka part
-    public void sendMessage(user User){
+    public void sendMessage(user User) {
         template.send("avroTestingT", User);
     }
 }

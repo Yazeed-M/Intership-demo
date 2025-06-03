@@ -13,7 +13,6 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-
 @Configuration
 public class RedisConfig {
 
@@ -33,23 +32,23 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
     @Bean
-public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-    RedisSerializationContext.SerializationPair<Object> valueSerializer =
-        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer());
+    public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+        RedisSerializationContext.SerializationPair<Object> valueSerializer
+                = RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer());
 
-    RedisSerializationContext.SerializationPair<String> keySerializer =
-        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer());
+        RedisSerializationContext.SerializationPair<String> keySerializer
+                = RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer());
 
-    RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-        .serializeKeysWith(keySerializer)
-        .serializeValuesWith(valueSerializer)
-        .entryTtl(Duration.ofMinutes(1)); // Optional TTL
+        RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeKeysWith(keySerializer)
+                .serializeValuesWith(valueSerializer)
+                .entryTtl(Duration.ofMinutes(1)); // Optional TTL
 
-    return RedisCacheManager.builder(connectionFactory)
-        .cacheDefaults(cacheConfig)
-        .build();
+        return RedisCacheManager.builder(connectionFactory)
+                .cacheDefaults(cacheConfig)
+                .build();
+    }
+
 }
-
-}
-

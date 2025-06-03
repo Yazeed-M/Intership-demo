@@ -11,24 +11,24 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import user.user;
 
-public class UserAvroDeserializer implements Deserializer<user>{
+public class UserAvroDeserializer implements Deserializer<user> {
 
-    public UserAvroDeserializer(){}
+    public UserAvroDeserializer() {
+    }
 
-        @Override
-         public user deserialize(String topic, byte[] data) {
+    @Override
+    public user deserialize(String topic, byte[] data) {
         DatumReader<user> reader = new SpecificDatumReader<>(user.class);
-        Decoder decoder= null;
+        Decoder decoder = null;
         try {
-            decoder= DecoderFactory.get().jsonDecoder(user.getClassSchema(), 
-            new String(data));
+            decoder = DecoderFactory.get().jsonDecoder(user.getClassSchema(),
+                    new String(data));
             return reader.read(null, decoder);
         } catch (IOException e) {
-             e.printStackTrace(); // Add logging here
+            e.printStackTrace(); // Add logging here
             throw new SerializationException("Failed to deserialize", e);
 
         }
     }
-
 
 }

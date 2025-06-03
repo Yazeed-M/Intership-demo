@@ -14,43 +14,51 @@ import com.example.demo.redis.redisUser;
 import user.user;
 
 @RestController
-@RequestMapping(path= "api/user")
+@RequestMapping(path = "api/user")
 public class UserController {
-    @Autowired 
-    private final jobs job;
-    private final UserService userService;
+
     @Autowired
-    UserController(UserService userService, jobs job){
+    private final jobs job;
+    @Autowired
+    private final UserService userService;
+
+    public UserController(UserService userService, jobs job) {
         this.job = job;
-        this.userService=userService;
+        this.userService = userService;
     }
+
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
+
     // @GetMapping("{name}")
     // public User createUser(@PathVariable("name") String name){
     //     return userService.getUserByname(name);
     // }
     @PostMapping("/update")
-    public User updateUser(@RequestBody User user){
+    public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
     @PostMapping("/delete")
-    public void deleteUser(@RequestBody User user){
-         userService.deleteUser(user.getName());
+    public void deleteUser(@RequestBody User user) {
+        userService.deleteUser(user.getName());
     }
+
     @PostMapping("/redis")
-    public redisUser addRedisUser(@RequestBody redisUser user){
+    public redisUser addRedisUser(@RequestBody redisUser user) {
         return userService.addUserRedis(user);
     }
+
     @GetMapping("{name}")
-    public void job(@PathVariable String name){
-         job.scheduling(name);
-         job.sched();
+    public void job(@PathVariable String name) {
+        job.scheduling(name);
+        job.sched();
     }
+
     @PostMapping("/kafka")
-    public void asyncomms(@RequestBody user User){
+    public void asyncomms(@RequestBody user User) {
         userService.sendMessage(User);
     }
 }
