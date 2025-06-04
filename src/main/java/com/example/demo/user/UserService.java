@@ -8,10 +8,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.jpa.User;
-import com.example.demo.jpa.UserRepository;
 import com.example.demo.redis.redisUser;
 import com.example.demo.redis.redisUserRepo;
+import com.example.demo.user.jpa.User;
+import com.example.demo.user.jpa.UserRepository;
 
 import user.user;
 

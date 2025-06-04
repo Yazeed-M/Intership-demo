@@ -1,4 +1,4 @@
-package com.example.demo.jpa;
+package com.example.demo.user.jpa;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +16,9 @@ public class User {
     private String name;
     private String password;
     private String redisId;
-
+    private String email;
+    private Double GPA;
+    private String major;
     public User() {
     }
 
