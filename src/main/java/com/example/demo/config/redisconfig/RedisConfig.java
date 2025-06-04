@@ -1,4 +1,4 @@
-package com.example.demo.redis;
+package com.example.demo.config.redisconfig;
 
 import java.time.Duration;
 
@@ -12,6 +12,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import com.example.demo.redis.redisUser;
 
 @Configuration
 public class RedisConfig {
