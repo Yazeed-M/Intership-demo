@@ -1,136 +1,11 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <changeSet author="Ninja (generated)" id="1749022872808-1">
-        <createTable tableName="jobrunr_backgroundjobservers">
-            <column name="id" type="CHAR(36)">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="workerPoolSize" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="pollIntervalInSeconds" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="firstHeartbeat" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lastHeartbeat" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="running" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="systemTotalMemory" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="systemFreeMemory" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="systemCpuLoad" type="DECIMAL(3, 2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="processMaxMemory" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="processFreeMemory" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="processAllocatedMemory" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="processCpuLoad" type="DECIMAL(3, 2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="deleteSucceededJobsAfter" type="VARCHAR(32)"/>
-            <column name="permanentlyDeleteJobsAfter" type="VARCHAR(32)"/>
-            <column name="name" type="VARCHAR(128)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-2">
-        <createTable tableName="jobrunr_jobs">
-            <column name="id" type="CHAR(36)">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="jobAsJson" type="MEDIUMTEXT"/>
-            <column name="jobSignature" type="VARCHAR(512)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="state" type="VARCHAR(36)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="createdAt" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updatedAt" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="scheduledAt" type="datetime(6)"/>
-            <column name="recurringJobId" type="VARCHAR(128)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-3">
-        <createTable tableName="jobrunr_metadata">
-            <column name="id" type="VARCHAR(156)">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="name" type="VARCHAR(92)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="owner" type="VARCHAR(64)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="createdAt" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updatedAt" type="datetime(6)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-4">
-        <createTable tableName="jobrunr_migrations">
-            <column name="id" type="CHAR(36)">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="script" type="VARCHAR(64)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="installedOn" type="VARCHAR(29)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-5">
-        <createTable tableName="jobrunr_recurring_jobs">
-            <column name="id" type="CHAR(128)">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="jobAsJson" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueNumeric="0" name="createdAt" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-6">
-        <createTable tableName="test_table">
-            <column name="test_id" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="test_column" type="INT"/>
-        </createTable>
-    </changeSet>
     <changeSet author="Ninja (generated)" id="1749022872808-7">
+            <preConditions onFail="MARK_RAN">
+                 <not>
+                     <tableExists tableName="user"/>
+                </not>
+            </preConditions>
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -141,54 +16,8 @@
             <column name="email" type="VARCHAR(255)"/>
             <column name="gpa" type="DOUBLE"/>
         </createTable>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-8">
-        <createIndex associatedWith="" indexName="jobrunr_bgjobsrvrs_fsthb_idx" tableName="jobrunr_backgroundjobservers">
-            <column name="firstHeartbeat"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-9">
-        <createIndex associatedWith="" indexName="jobrunr_bgjobsrvrs_lsthb_idx" tableName="jobrunr_backgroundjobservers">
-            <column name="lastHeartbeat"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-10">
-        <createIndex associatedWith="" indexName="jobrunr_job_created_at_idx" tableName="jobrunr_jobs">
-            <column name="createdAt"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-11">
-        <createIndex associatedWith="" indexName="jobrunr_job_rci_idx" tableName="jobrunr_jobs">
-            <column name="recurringJobId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-12">
-        <createIndex associatedWith="" indexName="jobrunr_job_scheduled_at_idx" tableName="jobrunr_jobs">
-            <column name="scheduledAt"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-13">
-        <createIndex associatedWith="" indexName="jobrunr_job_signature_idx" tableName="jobrunr_jobs">
-            <column name="jobSignature"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-14">
-        <createIndex associatedWith="" indexName="jobrunr_jobs_state_updated_idx" tableName="jobrunr_jobs">
-            <column name="state"/>
-            <column name="updatedAt"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-15">
-        <createIndex associatedWith="" indexName="jobrunr_recurring_job_created_at_idx" tableName="jobrunr_recurring_jobs">
-            <column defaultValueNumeric="0" name="createdAt"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-16">
-        <createIndex associatedWith="" indexName="jobrunr_state_idx" tableName="jobrunr_jobs">
-            <column name="state"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="Ninja (generated)" id="1749022872808-17">
-        <createView fullDefinition="false" remarks="VIEW" viewName="jobrunr_jobs_stats">select coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` is null))),0) AS `total`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'SCHEDULED'))),0) AS `scheduled`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'ENQUEUED'))),0) AS `enqueued`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'PROCESSING'))),0) AS `processing`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'FAILED'))),0) AS `failed`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'SUCCEEDED'))),0) AS `succeeded`,coalesce((select cast(cast(`jm`.`value` as char(10) charset utf8mb4) as decimal(10,0)) from `demo`.`jobrunr_metadata` `jm` where (`jm`.`id` = 'succeeded-jobs-counter-cluster')),0) AS `allTimeSucceeded`,coalesce(max((select `job_stat_results`.`count` from DUAL  where (`job_stat_results`.`state` = 'DELETED'))),0) AS `deleted`,(select count(0) from `demo`.`jobrunr_backgroundjobservers`) AS `nbrOfBackgroundJobServers`,(select count(0) from `demo`.`jobrunr_recurring_jobs`) AS `nbrOfRecurringJobs` from (select rollup_group_item(`demo`.`jobrunr_jobs`.`state`,0) AS `state`,rollup_sum_switcher(count(0)) AS `count` from `demo`.`jobrunr_jobs` group by `demo`.`jobrunr_jobs`.`state` with rollup) `job_stat_results`</createView>
+          <rollback>
+        <dropTable tableName="user"/>
+    </rollback>
     </changeSet>
 </databaseChangeLog>
